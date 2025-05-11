@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  nginx:
+    build:
+      context: nginx_certbot
+      dockerfile: Dockerfile
+    image: ghcr.io/enlich/nginx_certbot:latest
+    ports:
+      - "8080:80"
+      - "8443:443"
+    # Use slirp to get external source IP
+    network_mode: "slirp4netns:port_handler=slirp4netns,allow_host_loopback=true"
+    volumes:
+      - cert:/etc/letsencrypt
+      - ./conf.d:/opt/www/conf.d:ro,z
+volumes:
+  cert:
