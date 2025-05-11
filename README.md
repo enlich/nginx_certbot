@@ -28,8 +28,8 @@ This directory contains the `nginx` configurations for each server. `nginx` can 
 
 For each `server` block, you may want to re-use some useful configuration snippets:
 * [`/opt/www/conf/nginx_ssl.conf`](nginx_certbot/nginx_ssl.conf): Contains SSL port (443) and other suggested SSL params for a `server` block context. **Mandatory for using HTTPS**.
-* [`/opt/certbot/www/conf/nginx_webroot.conf`](nginx_certbot/nginx_webroot): Contains the configuration for serving the [HTTP-01 challenge](https://letsencrypt.org/docs/challenge-types/#http-01-challenge) for ACME. **Mandatory for using HTTPS**.
-* [`/opt/www/conf/nginx_proxy.conf`](nginx_certbox/nginx_proxy.conf): Contains proxy headers for a `location` context. **Optional for proxying**.
+* [`/opt/certbot/www/conf/nginx_webroot.conf`](nginx_certbot/nginx_webroot.conf): Contains the configuration for serving the [HTTP-01 challenge](https://letsencrypt.org/docs/challenge-types/#http-01-challenge) for ACME. **Mandatory for using HTTPS**.
+* [`/opt/www/conf/nginx_proxy.conf`](nginx_certbot/nginx_proxy.conf): Contains proxy headers for a `location` context. **Optional for proxying**.
 
 Each `server` block should `include` [`/opt/www/conf/nginx_ssl.conf`](nginx_certbot/nginx_ssl.conf) and [`/opt/certbot/www/conf/nginx_webroot.conf`](nginx_certbot/nginx_webroot) and define a [`server_name`](https://nginx.org/en/docs/http/ngx_http_core_module.html#server_name). [`ssl_certificate`](https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate) and [`ssl_certificate_key`](https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate_key) determines the certificate to use. These paths should point to the files in `/etc/letsencrypt/live/your.domain.com/`. **Do not use the `$server_name` since these files are owned by root in the docker and variable resolution is done by `nginx` on the HTTP request after privileges have been dropped.**
 
